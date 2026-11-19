@@ -9,6 +9,7 @@ const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const checkRequestOrigin = require("./middleware/originMiddleware");
 const errorHandler = require("./middleware/errorMiddleware");
+const transactionRoutes = require("./routes/transactionRoutes");
 
 const app = express();
 
@@ -32,6 +33,9 @@ app.get("/api/health", (req, res) => {
 
 // Authentication routes
 app.use("/api/auth", authRoutes);
+
+// Transaction routes
+app.use("/api/transactions", transactionRoutes);
 
 // Not found handler
 app.use((req, res) => {
