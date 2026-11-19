@@ -41,11 +41,15 @@ const AppLayout = () => {
                         Dashboard
                     </NavLink>
 
-                    <div className="nav-link nav-disabled">
+                    <NavLink
+                        to="/transactions"
+                        className={({ isActive }) =>
+                            `nav-link ${isActive ? "active" : ""}`
+                        }
+                    >
                         <span>▤</span>
                         Transactions
-                        <small>Soon</small>
-                    </div>
+                    </NavLink>
 
                 </nav>
 
@@ -102,10 +106,15 @@ const AppLayout = () => {
                         Dashboard
                     </NavLink>
 
-                    <span className="mobile-nav-disabled">
+                    <NavLink
+                        to="/transactions"
+                        className={({ isActive }) =>
+                            isActive ? "mobile-nav-active" : ""
+                        }
+                    >
                         <span>▤</span>
                         Transactions
-                    </span>
+                    </NavLink>
                 </nav>
 
             </div>

@@ -7,6 +7,8 @@ import DashboardPage from "./pages/DashboardPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import PublicRoute from "./components/PublicRoute";
 import AppLayout from "./components/AppLayout";
+import TransactionsPage from "./pages/TransactionsPage";
+import TransactionFormPage from "./pages/TransactionFormPage";
 
 import "./App.css";
 
@@ -24,6 +26,19 @@ function App() {
                     <Route
                         path="/dashboard"
                         element={<DashboardPage />}
+                    />
+                    <Route
+                        path="/transactions"
+                        element={<TransactionsPage />}
+                    />
+                    <Route
+                        path="/transactions/new"
+                        element={<TransactionFormPage />}
+                    />
+
+                    <Route
+                        path="/transactions/:id/edit"
+                        element={<TransactionFormPage />}
                     />
                 </Route>
             </Route>
