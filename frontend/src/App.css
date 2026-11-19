@@ -1547,3 +1547,258 @@
     }
 
 }
+
+/* =========================================
+   PHASE 7 - RESPONSIVE LAYOUT AND NAVIGATION
+========================================= */
+
+/* Navigation icon styling */
+
+.nav-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    background: #F1F5F9;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.nav-link.active .nav-icon {
+    background: #0F766E;
+    color: #FFFFFF;
+}
+
+
+/* =========================================
+   TABLET: 640px - 1023px
+========================================= */
+
+@media (min-width: 641px) and (max-width: 1023px) {
+
+    .app-shell {
+        display: grid;
+        grid-template-columns: 76px minmax(0, 1fr);
+        padding-bottom: 0;
+    }
+
+    .sidebar {
+        display: flex;
+        padding: 24px 9px;
+    }
+
+    .sidebar-brand {
+        justify-content: center;
+        padding: 0;
+    }
+
+    .sidebar-brand > span:last-child {
+        display: none;
+    }
+
+    .sidebar-section-label {
+        display: none;
+    }
+
+    .sidebar-nav {
+        margin-top: 35px;
+    }
+
+    .nav-link {
+        justify-content: center;
+        gap: 0;
+        padding: 8px 4px;
+    }
+
+    .nav-label {
+        display: none;
+    }
+
+    .nav-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .sidebar-bottom {
+        display: none;
+    }
+
+    .app-topbar {
+        padding: 0 24px;
+    }
+
+    .page-container {
+        padding: 30px 24px;
+    }
+
+    .mobile-bottom-nav {
+        display: none;
+    }
+}
+
+
+/* =========================================
+   MOBILE: BELOW 640px
+========================================= */
+
+@media (max-width: 640px) {
+
+    .app-shell {
+        display: block;
+        min-height: 100vh;
+        padding-bottom: calc(72px + env(safe-area-inset-bottom));
+    }
+
+    .sidebar {
+        display: none;
+    }
+
+    .app-topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        min-height: 64px;
+        padding: 0 16px;
+    }
+
+    .topbar-brand {
+        display: flex;
+        gap: 8px;
+        font-size: 15px;
+    }
+
+    .account-details {
+        gap: 8px;
+    }
+
+    .account-text {
+        display: none;
+    }
+
+    .account-avatar {
+        width: 34px;
+        height: 34px;
+    }
+
+    .signout-button {
+        margin-left: 0;
+        min-height: 40px;
+        padding: 8px 10px;
+    }
+
+    .page-container {
+        width: 100%;
+        padding: 24px 16px 32px;
+    }
+
+    .mobile-bottom-nav {
+        position: fixed;
+        z-index: 50;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        align-items: center;
+        gap: 8px;
+
+        min-height: calc(68px + env(safe-area-inset-bottom));
+        padding: 7px 12px calc(7px + env(safe-area-inset-bottom));
+
+        background: #FFFFFF;
+        border-top: 1px solid var(--border);
+    }
+
+    .mobile-nav-link,
+    .mobile-nav-add {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 4px;
+
+        min-width: 0;
+        min-height: 48px;
+        border-radius: 10px;
+
+        color: var(--text-muted);
+        font-size: 11px;
+        font-weight: 500;
+        text-decoration: none;
+    }
+
+    .mobile-nav-link > span,
+    .mobile-nav-add > span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    .mobile-nav-link.mobile-nav-active {
+        background: var(--primary-tint);
+        color: var(--primary);
+        font-weight: 700;
+    }
+
+    .mobile-nav-add {
+        background: var(--primary);
+        color: #FFFFFF;
+        font-weight: 700;
+    }
+
+    .mobile-nav-add > span {
+        font-size: 23px;
+    }
+
+    .mobile-nav-add:hover {
+        background: var(--primary-hover);
+    }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE: 380px AND BELOW
+========================================= */
+
+@media (max-width: 380px) {
+
+    .app-topbar {
+        padding: 0 11px;
+    }
+
+    .topbar-brand {
+        font-size: 14px;
+    }
+
+    .topbar-brand .brand-icon {
+        width: 30px;
+        height: 30px;
+    }
+
+    .signout-button {
+        padding: 7px 8px;
+        font-size: 11px;
+    }
+
+    .page-container {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .mobile-bottom-nav {
+        gap: 4px;
+        padding-right: 7px;
+        padding-left: 7px;
+    }
+
+}
