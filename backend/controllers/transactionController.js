@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const Transaction = require("../models/Transaction");
 
 const {
@@ -50,6 +51,78 @@ const getTransactions = async (req, res) => {
         data: {
             transactions: formattedTransactions,
             count: formattedTransactions.length
+        }
+    });
+};
+
+
+// GET /api/transactions/summary
+// Calculate the authenticated user's current-month financial summary.
+const getTransactionSummary = async (req, res) => {
+
+    // Determine the current calendar month in India.
+    const dateParts = new Intl.DateTimeFormat("en-US", {
+        timeZone: "Asia/Kolkata",
+        year: "numeric",
+        month: "numeric"
+    }).formatToParts(new Date());
+
+    const year = Number(
+        dateParts.find(part => part.type === "year").value
+    );
+
+    const month = Number(
+        dateParts.find(part => part.type === "month").value
+    );
+
+    // Transaction dates are stored as UTC calendar-date values.
+    const startOfMonth = new Date(
+        Date.UTC(year, month - 1, 1)
+    );
+
+    const startOfNextMonth = new Date(
+        Date.UTC(year, month, 1)
+    );
+
+    const totals = await Transaction.aggregate([
+        {
+            $match: {
+                userId: new mongoose.Types.ObjectId(req.userId),
+                transactionDate: {
+                    $gte: startOfMonth,
+                    $lt: startOfNextMonth
+                }
+            }
+        },
+        {
+            $group: {
+                _id: "$type",
+                totalPaise: {
+                    $sum: "$amountPaise"
+                }
+            }
+        }
+    ]);
+
+    const incomePaise =
+        totals.find(item => item._id === "income")?.totalPaise || 0;
+
+    const expensePaise =
+        totals.find(item => item._id === "expense")?.totalPaise || 0;
+
+    const balancePaise = incomePaise - expensePaise;
+    const netBalance = balancePaise < 0
+        ? -paiseToRupees(Math.abs(balancePaise))
+        : paiseToRupees(balancePaise);
+
+    return res.status(200).json({
+        status: "success",
+        data: {
+            period: "this-month",
+            month: `${year}-${String(month).padStart(2, "0")}`,
+            totalIncome: paiseToRupees(incomePaise),
+            totalExpenses: paiseToRupees(expensePaise),
+            netBalance
         }
     });
 };
@@ -183,6 +256,7 @@ const deleteTransaction = async (req, res) => {
 
 module.exports = {
     getTransactions,
+    getTransactionSummary,
     createTransaction,
     getTransactionById,
     updateTransaction,

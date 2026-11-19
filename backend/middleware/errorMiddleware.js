@@ -20,7 +20,7 @@ const errorHandler = (err, req, res, next) => {
     const statusCode = err.statusCode || 500;
 
     if (statusCode >= 500) {
-        console.error("Server error:", err.name || "UnknownError");
+        console.error("Server error details:", err.stack || err);
     }
 
     return res.status(statusCode).json({

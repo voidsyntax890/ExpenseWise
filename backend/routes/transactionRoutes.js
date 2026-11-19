@@ -20,6 +20,7 @@ const {
 
 const {
     getTransactions,
+    getTransactionSummary,
     createTransaction,
     getTransactionById,
     updateTransaction,
@@ -140,6 +141,14 @@ router.get(
         .withMessage("Type filter must be all, income, or expense."),
     validateRequest,
     getTransactions
+);
+
+
+// GET current-month financial summary.
+// Keep this before GET /:id so "summary" is not treated as an ID.
+router.get(
+    "/summary",
+    getTransactionSummary
 );
 
 

@@ -15,6 +15,14 @@ const getTransactions = async (type = "all") => {
 };
 
 
+// Retrieve current-month financial summary.
+const getTransactionSummary = async () => {
+    const response = await api.get("/transactions/summary");
+
+    return response.data?.data;
+};
+
+
 // Retrieve one transaction by ID.
 const getTransactionById = async (id) => {
     const response = await api.get(`/transactions/${id}`);
@@ -53,6 +61,7 @@ const deleteTransaction = async (id) => {
 
 const transactionService = {
     getTransactions,
+    getTransactionSummary,
     getTransactionById,
     createTransaction,
     updateTransaction,
